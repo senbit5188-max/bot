@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融监管牌照 - Vertex 金融系统</title>
+    <link rel="icon" type="image/png" href="assets/images/vrtx-token.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132040;
+            --navy-mid: #1a2d5a;
+            --gold: #c9a84c;
+            --gold-light: #e8d48b;
+            --gold-dark: #a0822e;
+            --blue: #2a4a8a;
+            --blue-light: #3d6bc5;
+            --white: #ffffff;
+            --gray-100: #f5f7fa;
+            --gray-200: #e8ecf2;
+            --gray-300: #d0d7e3;
+            --gray-600: #6b7a94;
+            --gray-800: #2d3748;
+            --gradient-gold: linear-gradient(135deg, #c9a84c 0%, #e8d48b 50%, #a0822e 100%);
+            --gradient-navy: linear-gradient(135deg, #0a1628 0%, #1a2d5a 100%);
+            --gradient-hero: linear-gradient(160deg, #060e1e 0%, #0a1628 30%, #132040 60%, #1a2d5a 100%);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+            --shadow-gold: 0 4px 30px rgba(201,168,76,0.15);
+            --shadow-premium: 0 20px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-800);
+            background: var(--gray-100);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        .gradient-text {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ====== Navbar ====== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 12px 0;
+            background: rgba(10, 22, 40, 0.97);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .nav-logo { height: 38px; width: auto; }
+        .nav-brand-text { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: 3px; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-link {
+            color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem;
+            font-weight: 500; transition: var(--transition); letter-spacing: 0.5px;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--gold); }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
+        .nav-toggle span { width: 24px; height: 2px; background: var(--white); transition: var(--transition); }
+
+        /* ====== Hero ====== */
+        .hero-banner {
+            background: var(--gradient-hero);
+            padding: 150px 0 90px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 60%);
+        }
+        .hero-banner::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+            background: linear-gradient(to top, var(--gray-100), transparent);
+        }
+        .hero-particles { position: absolute; inset: 0; overflow: hidden; }
+        .particle {
+            position: absolute; width: 3px; height: 3px;
+            background: rgba(201,168,76,0.3); border-radius: 50%;
+            animation: float-p 18s infinite;
+        }
+        .particle:nth-child(1) { top: 15%; left: 12%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 55%; left: 35%; animation-delay: 4s; }
+        .particle:nth-child(3) { top: 30%; left: 65%; animation-delay: 7s; }
+        .particle:nth-child(4) { top: 70%; left: 85%; animation-delay: 2s; }
+        .particle:nth-child(5) { top: 85%; left: 20%; animation-delay: 9s; }
+        @keyframes float-p {
+            0%, 100% { transform: translate(0,0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translate(80px, -160px) scale(2); opacity: 0.5; }
+            90% { opacity: 0; }
+        }
+        .hero-badge {
+            display: inline-block; padding: 8px 24px;
+            background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25);
+            border-radius: 50px; color: var(--gold); font-size: 0.82rem;
+            font-weight: 600; letter-spacing: 3px;
+            margin-bottom: 24px; position: relative; z-index: 2;
+        }
+        .hero-title {
+            font-family: 'Noto Serif SC', 'Playfair Display', serif; font-size: 3.4rem;
+            color: var(--white); margin-bottom: 20px; position: relative; z-index: 2;
+            font-weight: 700; letter-spacing: 2px;
+        }
+        .hero-subtitle {
+            font-size: 1.08rem; color: rgba(255,255,255,0.55);
+            max-width: 620px; margin: 0 auto; line-height: 1.9;
+            position: relative; z-index: 2;
+        }
+        .hero-back {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 32px; padding: 12px 32px; border-radius: 50px;
+            background: transparent; border: 1.5px solid rgba(201,168,76,0.3);
+            color: var(--gold-light); text-decoration: none; font-size: 0.88rem;
+            font-weight: 500; transition: var(--transition); position: relative; z-index: 2;
+        }
+        .hero-back:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+        /* ====== License Sections ====== */
+        .license-block {
+            padding: 70px 0;
+        }
+        .license-block:nth-child(odd) { background: var(--white); }
+        .license-block:nth-child(even) { background: var(--gray-100); }
+
+        .license-header {
+            display: flex; align-items: center; gap: 20px;
+            margin-bottom: 36px;
+        }
+        .license-icon-wrap {
+            width: 68px; height: 68px; min-width: 68px;
+            background: var(--gradient-navy); border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 24px rgba(10,22,40,0.25);
+        }
+        .license-icon-wrap svg { width: 30px; height: 30px; color: var(--gold); }
+        .license-header-text h2 {
+            font-family: 'Noto Serif SC', 'Playfair Display', serif; font-size: 1.8rem;
+            color: var(--navy); margin-bottom: 4px; font-weight: 700;
+        }
+        .license-header-text p {
+            font-size: 0.9rem; color: var(--gray-600); font-weight: 500;
+        }
+        .license-status {
+            margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 24px; background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2); border-radius: 50px;
+            color: #16a34a; font-size: 0.82rem; font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .license-status svg { width: 18px; height: 18px; }
+
+        /* Table Styling */
+        .license-table-wrap {
+            background: var(--white); border-radius: var(--radius-xl);
+            overflow: hidden; box-shadow: var(--shadow-premium);
+            border: 1px solid rgba(201,168,76,0.08);
+        }
+        .license-block:nth-child(odd) .license-table-wrap {
+            background: var(--gray-100);
+        }
+        .license-table-bar {
+            height: 4px; background: var(--gradient-gold);
+        }
+        .license-table {
+            width: 100%; border-collapse: collapse;
+        }
+        .license-table tr { border-bottom: 1px solid var(--gray-200); }
+        .license-table tr:last-child { border-bottom: none; }
+        .license-table tr:hover { background: rgba(201,168,76,0.02); }
+        .license-table td {
+            padding: 20px 32px; font-size: 0.95rem; vertical-align: middle;
+        }
+        .license-table td:first-child {
+            font-weight: 600; color: var(--gray-600); width: 220px;
+            font-size: 0.85rem; letter-spacing: 0.5px;
+            background: rgba(10,22,40,0.02);
+        }
+        .license-table td:last-child {
+            color: var(--navy); font-weight: 500;
+        }
+        .td-status {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 14px; background: rgba(34,197,94,0.1);
+            color: #16a34a; border-radius: 50px; font-weight: 600; font-size: 0.88rem;
+        }
+        .td-highlight {
+            color: var(--gold-dark) !important; font-weight: 700 !important;
+            font-size: 1.05rem !important;
+        }
+
+        /* Certificate */
+        .cert-section { padding: 90px 0; background: var(--gradient-hero); position: relative; }
+        .cert-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 60%);
+        }
+        .cert-card {
+            max-width: 850px; margin: 0 auto;
+            background: var(--white); border-radius: var(--radius-xl);
+            padding: 64px 56px; box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            position: relative; overflow: hidden;
+        }
+        .cert-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 5px; background: var(--gradient-gold);
+        }
+        .cert-card::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 5px; background: var(--gradient-gold);
+        }
+        .cert-header { text-align: center; margin-bottom: 40px; }
+        .cert-crest { width: 90px; height: 90px; margin: 0 auto 20px; }
+        .cert-crest svg { width: 100%; height: 100%; }
+        .cert-title {
+            font-family: 'Noto Serif SC', 'Playfair Display', serif; font-size: 2rem;
+            color: var(--navy); margin-bottom: 6px; font-weight: 700;
+        }
+        .cert-subtitle { font-size: 0.9rem; color: var(--gray-600); font-weight: 500; }
+        .cert-body { text-align: center; margin-bottom: 36px; }
+        .cert-body p { font-size: 1rem; color: var(--gray-800); line-height: 2; margin-bottom: 12px; }
+        .cert-company {
+            font-family: 'Noto Serif SC', 'Playfair Display', serif; font-size: 1.65rem;
+            color: var(--navy); font-weight: 700; margin: 24px 0;
+            letter-spacing: 2px;
+        }
+        .cert-uen {
+            font-size: 1.3rem; color: var(--gold-dark); font-weight: 700;
+            margin: 20px 0; letter-spacing: 3px;
+        }
+        .cert-footer {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--gray-200);
+        }
+        .cert-stamp { text-align: center; }
+        .cert-stamp-circle {
+            width: 90px; height: 90px; border: 3px solid var(--gold);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 10px; color: var(--gold); font-size: 0.6rem;
+            font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+            text-align: center; line-height: 1.3; padding: 10px;
+        }
+        .cert-stamp-label { font-size: 0.8rem; color: var(--gray-600); }
+        .cert-sig { text-align: center; }
+        .cert-sig img { height: 48px; margin-bottom: 10px; }
+        .cert-sig-line { width: 170px; height: 1px; background: var(--gray-300); margin: 0 auto 8px; }
+        .cert-sig-name { font-size: 0.9rem; color: var(--navy); font-weight: 600; }
+        .cert-sig-title { font-size: 0.78rem; color: var(--gray-600); }
+
+        /* Regulatory Bodies */
+        .reg-section { padding: 80px 0; background: var(--white); }
+        .reg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .reg-card {
+            background: var(--gray-100); border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg); padding: 40px 28px; text-align: center;
+            transition: var(--transition);
+        }
+        .reg-card:hover {
+            transform: translateY(-6px); box-shadow: var(--shadow-premium);
+            border-color: rgba(201,168,76,0.3);
+        }
+        .reg-icon {
+            width: 60px; height: 60px; background: var(--gradient-navy);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 18px; box-shadow: 0 4px 16px rgba(10,22,40,0.2);
+        }
+        .reg-icon svg { width: 26px; height: 26px; color: var(--gold); }
+        .reg-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 10px; font-weight: 700; }
+        .reg-card p { font-size: 0.88rem; color: var(--gray-600); line-height: 1.7; }
+
+        /* Section header reusable */
+        .sec-header { text-align: center; max-width: 650px; margin: 0 auto 52px; }
+        .sec-tag {
+            display: inline-block; padding: 6px 18px;
+            background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.18);
+            border-radius: 50px; color: var(--gold-dark); font-size: 0.75rem;
+            font-weight: 600; letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .cert-section .sec-tag {
+            background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.25);
+            color: var(--gold);
+        }
+        .cert-section .sec-title { color: var(--white); }
+        .sec-title {
+            font-family: 'Noto Serif SC', 'Playfair Display', serif; font-size: 2.4rem;
+            color: var(--navy); margin-bottom: 12px; font-weight: 700;
+        }
+        .sec-subtitle { font-size: 0.95rem; color: var(--gray-600); line-height: 1.8; }
+
+        /* Disclaimer */
+        .disclaimer {
+            max-width: 800px; margin: 0 auto; padding: 28px 36px;
+            background: var(--white); border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg); text-align: center;
+        }
+        .disclaimer p { font-size: 0.82rem; color: var(--gray-600); line-height: 1.9; }
+        .disclaimer a { color: var(--blue-light); }
+
+        /* Footer */
+        .footer { background: var(--navy); padding: 56px 0 28px; }
+        .footer-inner {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            gap: 40px; margin-bottom: 36px; padding-bottom: 36px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .footer-brand img { height: 48px; margin-bottom: 14px; }
+        .footer-brand p { color: rgba(255,255,255,0.45); font-size: 0.85rem; line-height: 1.8; }
+        .footer-col h4 {
+            color: var(--gold); font-size: 0.8rem;
+            letter-spacing: 2px; margin-bottom: 18px; font-weight: 700;
+        }
+        .footer-col a {
+            display: block; color: rgba(255,255,255,0.45); text-decoration: none;
+            font-size: 0.85rem; margin-bottom: 10px; transition: var(--transition);
+        }
+        .footer-col a:hover { color: var(--gold); transform: translateX(4px); }
+        .footer-bottom { text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.3); font-size: 0.78rem; margin-bottom: 4px; }
+
+        /* Animations */
+        .fade-up {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ====== Responsive ====== */
+        @media (max-width: 968px) {
+            .hero-title { font-size: 2.6rem; }
+            .license-header { flex-wrap: wrap; }
+            .license-status { margin-left: 0; margin-top: 8px; }
+            .license-header-text h2 { font-size: 1.4rem; }
+            .reg-grid { grid-template-columns: 1fr 1fr; }
+            .cert-card { padding: 44px 32px; }
+            .cert-company { font-size: 1.3rem; }
+            .footer-inner { flex-direction: column; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(10,22,40,0.98); flex-direction: column;
+                padding: 20px; gap: 14px; border-top: 1px solid rgba(255,255,255,0.08);
+            }
+            .nav-links.active { display: flex; }
+            .nav-toggle { display: flex; }
+            .hero-banner { padding: 130px 0 70px; }
+            .hero-title { font-size: 2rem; }
+            .sec-title { font-size: 1.8rem; }
+            .license-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .license-table td { padding: 14px 20px; display: block; width: 100% !important; }
+            .license-table td:first-child {
+                background: rgba(10,22,40,0.04); padding-bottom: 4px;
+                border-bottom: none; font-size: 0.75rem;
+            }
+            .license-table td:last-child { padding-top: 4px; }
+            .license-table tr { display: block; border-bottom: 1px solid var(--gray-200); }
+            .reg-grid { grid-template-columns: 1fr; }
+            .cert-footer { flex-direction: column; align-items: center; gap: 28px; }
+            .cert-card { padding: 36px 22px; }
+            .cert-title { font-size: 1.5rem; }
+            .cert-company { font-size: 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .hero-title { font-size: 1.7rem; }
+            .hero-subtitle { font-size: 0.92rem; }
+            .license-icon-wrap { width: 52px; height: 52px; min-width: 52px; border-radius: 14px; }
+            .license-icon-wrap svg { width: 24px; height: 24px; }
+            .sec-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/images/vertex-logo.png" alt="Vertex Financial Systems" class="nav-logo">
+                <span class="nav-brand-text">VERTEX</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="index.html#about" class="nav-link">关于我们</a>
+                <a href="index.html#token" class="nav-link">VRTX 代币</a>
+                <a href="index.html#features" class="nav-link">核心优势</a>
+                <a href="license.html" class="nav-link active">监管牌照</a>
+                <a href="index.html#contact" class="nav-link">联系我们</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-particles">
+            <div class="particle"></div><div class="particle"></div>
+            <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        </div>
+        <div class="container">
+            <div class="hero-badge">监管合规体系</div>
+            <h1 class="hero-title"><span class="gradient-text">金融</span>监管牌照</h1>
+            <p class="hero-subtitle">Vertex 金融系统在完善的监管合规框架下运营，持有多项由权威金融监管机构颁发的牌照与注册许可。</p>
+            <a href="index.html" class="hero-back">&larr; 返回首页</a>
+        </div>
+    </section>
+
+    <!-- License 1: ACRA Company Registration -->
+    <section class="license-block" id="acra">
+        <div class="container">
+            <div class="license-header fade-up">
+                <div class="license-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <div class="license-header-text">
+                    <h2>ACRA 公司注册证书</h2>
+                    <p>新加坡会计与企业管理局</p>
+                </div>
+                <div class="license-status">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    有效
+                </div>
+            </div>
+            <div class="license-table-wrap fade-up">
+                <div class="license-table-bar"></div>
+                <table class="license-table">
+                    <tr><td>公司名称</td><td>VERTEX FINTECH SYSTEMS PTE. LTD.</td></tr>
+                    <tr><td>统一实体编号</td><td class="td-highlight">202617962M</td></tr>
+                    <tr><td>公司类型</td><td>豁免私人有限公司（股份制）</td></tr>
+                    <tr><td>注册成立日期</td><td>2026年4月22日</td></tr>
+                    <tr><td>公司状态</td><td><span class="td-status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><circle cx="12" cy="12" r="5" fill="#16a34a" stroke="none"/></svg> 存续运营中</span></td></tr>
+                    <tr><td>注册地址</td><td>60 Paya Lebar Road, #04-16, Paya Lebar Square, Singapore 409051</td></tr>
+                    <tr><td>已发行股本</td><td class="td-highlight">SGD 100,000,000</td></tr>
+                    <tr><td>股份数量</td><td>100,000,000 普通股（新加坡元）</td></tr>
+                    <tr><td>监管机构</td><td>ACRA - 新加坡会计与企业管理局</td></tr>
+                    <tr><td>在线查验</td><td><a href="https://www.acra.gov.sg" target="_blank" style="color: var(--blue-light);">www.acra.gov.sg</a></td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- License 2: Securities Dealing License -->
+    <section class="license-block" id="securities">
+        <div class="container">
+            <div class="license-header fade-up">
+                <div class="license-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                </div>
+                <div class="license-header-text">
+                    <h2>证券交易牌照</h2>
+                    <p>证券经纪及交易商业务</p>
+                </div>
+                <div class="license-status">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    已授权
+                </div>
+            </div>
+            <div class="license-table-wrap fade-up">
+                <div class="license-table-bar"></div>
+                <table class="license-table">
+                    <tr><td>牌照类型</td><td>证券交易及经纪</td></tr>
+                    <tr><td>SSIC 行业代码</td><td class="td-highlight">66121</td></tr>
+                    <tr><td>业务范围</td><td>证券经纪及交易商</td></tr>
+                    <tr><td>业务类别</td><td>主营业务</td></tr>
+                    <tr><td>覆盖品种</td><td>股票、债券及相关证券产品</td></tr>
+                    <tr><td>管辖区域</td><td>新加坡共和国</td></tr>
+                    <tr><td>状态</td><td><span class="td-status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><circle cx="12" cy="12" r="5" fill="#16a34a" stroke="none"/></svg> 已授权</span></td></tr>
+                    <tr><td>持牌主体</td><td>VERTEX FINTECH SYSTEMS PTE. LTD.</td></tr>
+                    <tr><td>生效日期</td><td>2026年4月22日</td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- License 3: Commodities Exchange License -->
+    <section class="license-block" id="commodities">
+        <div class="container">
+            <div class="license-header fade-up">
+                <div class="license-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </div>
+                <div class="license-header-text">
+                    <h2>大宗商品交易所牌照</h2>
+                    <p>证券及大宗商品交易所运营</p>
+                </div>
+                <div class="license-status">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    已授权
+                </div>
+            </div>
+            <div class="license-table-wrap fade-up">
+                <div class="license-table-bar"></div>
+                <table class="license-table">
+                    <tr><td>牌照类型</td><td>证券及大宗商品交易所</td></tr>
+                    <tr><td>SSIC 行业代码</td><td class="td-highlight">66110</td></tr>
+                    <tr><td>业务范围</td><td>证券及大宗商品交易所运营</td></tr>
+                    <tr><td>业务类别</td><td>副营业务</td></tr>
+                    <tr><td>覆盖品种</td><td>证券、大宗商品及衍生品交易</td></tr>
+                    <tr><td>管辖区域</td><td>新加坡共和国</td></tr>
+                    <tr><td>状态</td><td><span class="td-status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><circle cx="12" cy="12" r="5" fill="#16a34a" stroke="none"/></svg> 已授权</span></td></tr>
+                    <tr><td>持牌主体</td><td>VERTEX FINTECH SYSTEMS PTE. LTD.</td></tr>
+                    <tr><td>生效日期</td><td>2026年4月22日</td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- License 4: Digital Payment Token License -->
+    <section class="license-block" id="dpt">
+        <div class="container">
+            <div class="license-header fade-up">
+                <div class="license-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
+                <div class="license-header-text">
+                    <h2>数字支付代币牌照</h2>
+                    <p>新加坡金融管理局（MAS）</p>
+                </div>
+                <div class="license-status">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    合规
+                </div>
+            </div>
+            <div class="license-table-wrap fade-up">
+                <div class="license-table-bar"></div>
+                <table class="license-table">
+                    <tr><td>牌照类型</td><td>数字支付代币（DPT）服务</td></tr>
+                    <tr><td>监管框架</td><td class="td-highlight">《2019年支付服务法》</td></tr>
+                    <tr><td>代币名称</td><td>VRTX Token</td></tr>
+                    <tr><td>代币类型</td><td>虚拟货币 &middot; 去中心化网络</td></tr>
+                    <tr><td>监管机构</td><td>新加坡金融管理局（MAS）</td></tr>
+                    <tr><td>管辖区域</td><td>新加坡共和国</td></tr>
+                    <tr><td>KYC/AML 合规</td><td><span class="td-status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><circle cx="12" cy="12" r="5" fill="#16a34a" stroke="none"/></svg> 合规</span></td></tr>
+                    <tr><td>持牌主体</td><td>VERTEX FINTECH SYSTEMS PTE. LTD.</td></tr>
+                    <tr><td>生效日期</td><td>2026年第二季度</td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate of Incorporation -->
+    <section class="cert-section">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-tag">官方证书</div>
+                <h2 class="sec-title"><span class="gradient-text">公司注册</span>证书</h2>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-header">
+                    <div class="cert-crest">
+                        <svg viewBox="0 0 80 80" fill="none">
+                            <circle cx="40" cy="40" r="38" stroke="#c9a84c" stroke-width="2"/>
+                            <circle cx="40" cy="40" r="34" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+                            <circle cx="40" cy="40" r="28" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+                            <path d="M40 15L50 35H30L40 15Z" fill="#1a2d5a"/>
+                            <path d="M35 30L45 50H25L35 30Z" fill="#c9a84c" opacity="0.8"/>
+                            <path d="M45 25L55 45H35L45 25Z" fill="#c9a84c" opacity="0.6"/>
+                            <line x1="45" y1="25" x2="50" y2="18" stroke="#c9a84c" stroke-width="2"/>
+                            <line x1="50" y1="20" x2="55" y2="13" stroke="#c9a84c" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="cert-title">公司注册证书</div>
+                    <div class="cert-subtitle">新加坡共和国 &middot; 公司法（第50章）</div>
+                </div>
+                <div class="cert-body">
+                    <p>兹证明</p>
+                    <div class="cert-company">VERTEX FINTECH SYSTEMS PTE. LTD.</div>
+                    <p>已依据《公司法》（第50章）正式注册为<strong>豁免私人有限公司（股份制）</strong>，注册日期为 <strong>2026年4月22日</strong>，并获授以下统一实体编号</p>
+                    <div class="cert-uen">UEN: 202617962M</div>
+                    <p>本公司获授权在新加坡共和国境内开展证券经纪及交易商业务（SSIC 66121）以及证券及大宗商品交易所运营业务（SSIC 66110）。</p>
+                </div>
+                <div class="cert-footer">
+                    <div class="cert-stamp">
+                        <div class="cert-stamp-circle">ACRA<br>新加坡<br>已验证</div>
+                        <div class="cert-stamp-label">2026年4月22日</div>
+                    </div>
+                    <div class="cert-sig">
+                        <img src="assets/images/vertex-logo.png" alt="Vertex">
+                        <div class="cert-sig-line"></div>
+                        <div class="cert-sig-name">Vertex Fintech Systems</div>
+                        <div class="cert-sig-title">Pte. Ltd.</div>
+                    </div>
+                    <div class="cert-stamp">
+                        <div class="cert-stamp-circle">公司<br>印章</div>
+                        <div class="cert-stamp-label">新加坡</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regulatory Bodies -->
+    <section class="reg-section">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-tag">监管机构</div>
+                <h2 class="sec-title">受<span class="gradient-text">权威机构</span>监管</h2>
+            </div>
+            <div class="reg-grid">
+                <div class="reg-card fade-up">
+                    <div class="reg-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>ACRA</h3>
+                    <p>新加坡会计与企业管理局<br><strong>公司注册监管</strong></p>
+                </div>
+                <div class="reg-card fade-up">
+                    <div class="reg-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <h3>MAS</h3>
+                    <p>新加坡金融管理局<br><strong>金融监管机构</strong></p>
+                </div>
+                <div class="reg-card fade-up">
+                    <div class="reg-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3>FATF</h3>
+                    <p>国际反洗钱金融行动特别工作组<br><strong>AML/CFT 国际标准</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer -->
+    <section style="padding: 40px 0; background: var(--gray-100);">
+        <div class="container">
+            <div class="disclaimer">
+                <p><strong>免责声明：</strong>本页面展示的所有注册及牌照信息均基于新加坡会计与企业管理局（ACRA）的官方记录。公司注册信息可在 <a href="https://www.acra.gov.sg" target="_blank">www.acra.gov.sg</a> 独立核实。VRTX Token 的运营受各司法管辖区适用监管框架的约束。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <img src="assets/images/vertex-logo.png" alt="Vertex">
+                    <p>Vertex Fintech Systems Pte. Ltd.<br>统一实体编号：202617962M<br>新加坡注册公司</p>
+                </div>
+                <div class="footer-col">
+                    <h4>快速导航</h4>
+                    <a href="index.html">首页</a>
+                    <a href="index.html#about">关于我们</a>
+                    <a href="index.html#token">VRTX 代币</a>
+                    <a href="index.html#features">核心优势</a>
+                </div>
+                <div class="footer-col">
+                    <h4>监管牌照</h4>
+                    <a href="#acra">ACRA 注册证书</a>
+                    <a href="#securities">证券交易牌照</a>
+                    <a href="#commodities">大宗商品牌照</a>
+                    <a href="#dpt">数字支付代币牌照</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Vertex Fintech Systems Pte. Ltd. 保留所有权利</p>
+                <p>受新加坡会计与企业管理局（ACRA）监管</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            navLinks.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => navLinks.classList.remove('active'));
+            });
+        }
+
+        // Scroll fade-up animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
