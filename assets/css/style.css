@@ -45,7 +45,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--gray-800);
     background: var(--white);
     line-height: 1.6;
@@ -242,11 +242,12 @@ h1, h2, h3, h4 {
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Noto Serif SC', 'Playfair Display', serif;
     font-size: 3.8rem;
     color: var(--white);
     margin-bottom: 20px;
-    line-height: 1.1;
+    line-height: 1.2;
+    letter-spacing: 2px;
 }
 
 .hero-subtitle {
@@ -416,10 +417,11 @@ h1, h2, h3, h4 {
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Noto Serif SC', 'Playfair Display', serif;
     font-size: 2.8rem;
     color: var(--navy);
     margin-bottom: 16px;
+    letter-spacing: 1px;
 }
 
 .section-subtitle {
@@ -1120,7 +1122,7 @@ h1, h2, h3, h4 {
 }
 
 .certificate-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Noto Serif SC', 'Playfair Display', serif;
     font-size: 2rem;
     color: var(--navy);
     margin-bottom: 8px;
@@ -1145,7 +1147,7 @@ h1, h2, h3, h4 {
 }
 
 .certificate-company {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Noto Serif SC', 'Playfair Display', serif;
     font-size: 1.6rem;
     color: var(--navy);
     font-weight: 700;
