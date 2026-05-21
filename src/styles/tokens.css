@@ -1,0 +1,65 @@
+:root {
+  /* ink — neutral foreground */
+  --gdi-ink: #0b0b0c;
+  --gdi-ink2: #2a2a2c;
+  --gdi-ink3: #6b6b6e;
+  --gdi-ink4: #9a9aa0;
+
+  /* paper — warm neutral background */
+  --gdi-paper: #f5f3ee;
+  --gdi-paper2: #edeae2;
+  --gdi-paper3: #f8f6f2;
+  --gdi-line: #e4dfd3;
+  --gdi-line2: #efece4;
+
+  /* hero accent — institutional deep blue */
+  --gdi-accent: #1b365d;
+  --gdi-accent2: #254a7f;
+  --gdi-accent3: #0f2140;
+
+  /* AISTER brand mark color — crypto blue */
+  --aister-blue: #2962ff;
+  --aister-blue-deep: #1e4bd0;
+  --aister-blue-soft: #d9e3ff;
+
+  /* signal accents */
+  --gdi-coral: #e45a3b;
+  --gdi-coral-deep: #b8361f;
+  --gdi-coral-soft: #f28a6e;
+
+  /* up / down — Asia convention: red up, green down */
+  --gdi-up: #e45a3b;
+  --gdi-up-soft: #f28a6e;
+  --gdi-up-bg: #fbe8e0;
+  --gdi-down: #2f6a4a;
+  --gdi-down-soft: #7ebda6;
+  --gdi-down-bg: #e4f0eb;
+
+  /* support hues */
+  --gdi-emerald: #0b7a5b;
+  --gdi-amber: #c7813a;
+  --gdi-bronze: #b8975a;
+  --gdi-azure: #4b5be8;
+  --gdi-violet-soft: #efecf7;
+  --gdi-blue-soft: #e4ecf7;
+  --gdi-warn-soft: #fbe8e0;
+
+  /* radius */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* font stacks */
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC",
+    "Source Han Sans SC", "Microsoft YaHei", "Helvetica Neue", system-ui, sans-serif;
+  --font-num: "SF Pro Display", -apple-system, BlinkMacSystemFont, "DIN Alternate",
+    "Helvetica Neue", "PingFang SC", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
+
+  /* tab + nav */
+  --nav-h: 60px;
+  --header-h: 44px;
+}

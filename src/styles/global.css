@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--gdi-paper2);
+  color: var(--gdi-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.4;
+}
+#app {
+  min-height: 100vh;
+}
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+input,
+textarea {
+  font-family: inherit;
+}
+.num {
+  font-family: var(--font-num);
+  font-feature-settings: "tnum" 1;
+}
+.mono {
+  font-family: var(--font-mono);
+}
+.up {
+  color: var(--gdi-up);
+}
+.down {
+  color: var(--gdi-down);
+}
+.muted {
+  color: var(--gdi-ink3);
+}
+.hairline {
+  border-top: 1px solid var(--gdi-line);
+}
+.page {
+  min-height: 100vh;
+  padding-bottom: calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));
+}
+.page--noNav {
+  padding-bottom: 16px;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
