@@ -1,10 +1,14 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { ChevronLeft } from 'lucide-vue-next'
 
 defineProps({
   title: { type: String, required: true },
   subtitle: { type: String, default: '' },
-  hint: { type: String, default: '该页面属于完整移动端,仅在此演示导航与首页交易所样式。' }
+  hint: {
+    type: String,
+    default: '此页面为 AISTER 移动端导航占位 · 完整功能将在下一版本上线'
+  }
 })
 
 const router = useRouter()
@@ -14,9 +18,7 @@ const router = useRouter()
   <div class="page page--noNav placeholder">
     <header class="ph-hd">
       <button class="ph-back" aria-label="返回" @click="router.back()">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m15 6-6 6 6 6" />
-        </svg>
+        <ChevronLeft :size="22" />
       </button>
       <span class="ph-title">{{ title }}</span>
       <span class="ph-sp" />
@@ -28,7 +30,7 @@ const router = useRouter()
         <p v-if="subtitle" class="ph-sub">{{ subtitle }}</p>
         <p class="ph-hint">{{ hint }}</p>
         <slot />
-        <button class="ph-cta" @click="router.push('/')">回到首页 · 体验交易所样式</button>
+        <button class="ph-cta" @click="router.push('/')">返回首页 · 体验 AISTER 交易所</button>
       </div>
     </main>
   </div>
@@ -37,7 +39,7 @@ const router = useRouter()
 <style scoped>
 .placeholder {
   min-height: 100vh;
-  background: var(--gdi-paper);
+  background: var(--bg);
 }
 .ph-hd {
   position: sticky;
@@ -48,67 +50,64 @@ const router = useRouter()
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(245, 243, 238, 0.92);
-  backdrop-filter: saturate(160%) blur(20px);
-  -webkit-backdrop-filter: saturate(160%) blur(20px);
-  border-bottom: 1px solid var(--gdi-line2);
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
 }
 .ph-back {
   width: 40px;
   height: 40px;
-  border-radius: var(--r-md);
-  color: var(--gdi-ink);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 .ph-back:active {
-  background: var(--gdi-line2);
+  background: var(--bg);
 }
 .ph-title {
   font-size: 15px;
   font-weight: 600;
-  color: var(--gdi-ink);
+  color: var(--text-primary);
   letter-spacing: 0.02em;
 }
 .ph-sp {
   width: 40px;
 }
 .ph-body {
-  padding: 32px 16px 80px;
+  padding: 24px 16px 32px;
 }
 .ph-card {
-  background: #fff;
-  border: 1px solid var(--gdi-line2);
-  border-radius: var(--r-lg);
+  background: var(--card-bg);
+  border-radius: var(--radius);
   padding: 24px 18px;
   text-align: left;
-  box-shadow: 0 10px 30px -28px rgba(11, 11, 12, 0.4);
+  box-shadow: 0 10px 30px -28px rgba(15, 23, 42, 0.3);
 }
 .ph-tag {
   display: inline-block;
-  background: var(--gdi-blue-soft);
-  color: var(--gdi-accent);
+  background: var(--primary-light);
+  color: var(--primary);
   font-size: 11px;
   padding: 2px 8px;
-  border-radius: var(--r-pill);
+  border-radius: var(--radius-pill);
   letter-spacing: 0.08em;
   font-weight: 700;
 }
 .ph-h1 {
   font-size: 20px;
   font-weight: 700;
-  color: var(--gdi-ink);
+  color: var(--text-primary);
   margin: 10px 0 6px;
   letter-spacing: -0.01em;
 }
 .ph-sub {
   margin: 0 0 8px;
-  color: var(--gdi-ink2);
+  color: var(--text-secondary);
   font-size: 13px;
 }
 .ph-hint {
-  color: var(--gdi-ink3);
+  color: var(--text-muted);
   font-size: 12px;
   margin: 4px 0 18px;
   line-height: 1.6;
@@ -116,15 +115,15 @@ const router = useRouter()
 .ph-cta {
   margin-top: 18px;
   display: inline-flex;
-  padding: 10px 16px;
-  background: var(--gdi-accent);
-  color: var(--gdi-paper);
-  border-radius: var(--r-pill);
+  padding: 10px 18px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-pill);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
 .ph-cta:active {
-  background: var(--gdi-accent3);
+  background: var(--primary-deep);
 }
 </style>

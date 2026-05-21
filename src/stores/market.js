@@ -9,165 +9,94 @@ function seededRand(seed) {
   }
 }
 
-function buildSpark(seed, base, vol = 0.02) {
+function buildSpark(seed, base, vol = 0.015, trendUp = true) {
   const rand = seededRand(seed)
   const out = []
-  let v = base
+  let v = base * 0.96
+  const drift = ((base - v) / 31) * (trendUp ? 1 : -1)
   for (let i = 0; i < 32; i += 1) {
-    v += (rand() - 0.5) * (base * vol)
-    out.push(Number(v.toFixed(Math.max(2, 6 - Math.floor(Math.log10(base + 1))))))
+    v += drift + (rand() - 0.5) * (base * vol)
+    out.push(Number(v.toFixed(6)))
   }
   return out
 }
 
-// Hero indexes — major crypto pairs styled as AISTER market indexes
-const INDEX_RAW = [
-  {
-    code: 'BTC/USDT',
-    name: '比特币 · Bitcoin',
-    last: 68420.55,
-    chg: 612.30,
-    pct: 0.91,
-    high: 69100.00,
-    low: 67820.40,
-    vol24h: '128.4 亿 USDT',
-    cap: '1.34 万亿 USDT',
-    weight: '现货深度 #1 · 永续未平仓 38.2 亿',
-    sparkSeed: 11,
-    badge: 'BTC',
-    badgeColor: '#f7931a'
-  },
-  {
-    code: 'ETH/USDT',
-    name: '以太坊 · Ethereum',
-    last: 3412.08,
-    chg: 18.42,
-    pct: 0.54,
-    high: 3438.50,
-    low: 3392.10,
-    vol24h: '52.7 亿 USDT',
-    cap: '4108 亿 USDT',
-    weight: '现货深度 #2 · 永续未平仓 14.6 亿',
-    sparkSeed: 23,
-    badge: 'Ξ',
-    badgeColor: '#627eea'
-  },
-  {
-    code: 'SOL/USDT',
-    name: '索拉纳 · Solana',
-    last: 168.32,
-    chg: 4.62,
-    pct: 2.82,
-    high: 170.50,
-    low: 162.41,
-    vol24h: '18.2 亿 USDT',
-    cap: '764 亿 USDT',
-    weight: 'L1 蓝筹 · 永续未平仓 3.8 亿',
-    sparkSeed: 37,
-    badge: '◎',
-    badgeColor: '#9945ff'
-  },
-  {
-    code: 'AISTER/USDT',
-    name: '艾斯特平台币 · AISTER',
-    last: 12.86,
-    chg: 0.54,
-    pct: 4.38,
-    high: 13.12,
-    low: 12.22,
-    vol24h: '3.42 亿 USDT',
-    cap: '128.6 亿 USDT',
-    weight: '平台币 · 持有 AISTER 享手续费折扣',
-    sparkSeed: 49,
-    badge: 'A',
-    badgeColor: '#c5a44e'
-  },
-  {
-    code: 'BNB/USDT',
-    name: '币安币 · BNB',
-    last: 612.40,
-    chg: -2.18,
-    pct: -0.35,
-    high: 618.20,
-    low: 608.15,
-    vol24h: '8.74 亿 USDT',
-    cap: '892 亿 USDT',
-    weight: 'CEX 平台币 · 主网生态龙头',
-    sparkSeed: 61,
-    badge: 'B',
-    badgeColor: '#f3ba2f'
-  }
+const COINS = [
+  { symbol: 'BTC', name: '比特币', icon: '₿', iconBg: '#f7931a', last: 104523.78, pct: 1.23, vol: '24.32B', tag: '主流币', favored: true, sparkSeed: 11 },
+  { symbol: 'ETH', name: '以太坊', icon: 'Ξ', iconBg: '#627eea', last: 2529.65, pct: 2.01, vol: '12.18B', tag: '主流币', favored: true, sparkSeed: 23 },
+  { symbol: 'SOL', name: '索拉纳', icon: '◎', iconBg: '#9945ff', last: 162.35, pct: 1.45, vol: '3.21B', tag: '主流币', favored: true, sparkSeed: 37 },
+  { symbol: 'AISTER', name: '艾斯特', icon: 'A', iconBg: '#2962ff', last: 0.1867, pct: 5.36, vol: '0.86B', tag: '平台币', favored: true, sparkSeed: 49 },
+  { symbol: 'BNB', name: '币安币', icon: 'B', iconBg: '#f3ba2f', last: 612.40, pct: -0.35, vol: '8.74B', tag: '主流币', favored: false, sparkSeed: 61 },
+  { symbol: 'XRP', name: '瑞波币', icon: 'X', iconBg: '#23292f', last: 0.5418, pct: 1.27, vol: '4.62B', tag: '主流币', favored: false, sparkSeed: 73 },
+  { symbol: 'DOGE', name: '狗狗币', icon: 'Ð', iconBg: '#c2a633', last: 0.1378, pct: -1.84, vol: '3.18B', tag: '模因币', favored: false, sparkSeed: 79 },
+  { symbol: 'TON', name: '电报币', icon: 'T', iconBg: '#0098ea', last: 6.84, pct: 5.62, vol: '2.06B', tag: '主流币', favored: false, sparkSeed: 83 },
+  { symbol: 'ADA', name: '艾达币', icon: 'A', iconBg: '#0033ad', last: 0.4612, pct: 0.22, vol: '2.91B', tag: '主流币', favored: false, sparkSeed: 89 },
+  { symbol: 'AVAX', name: '雪崩协议', icon: 'X', iconBg: '#e84142', last: 38.42, pct: -2.18, vol: '1.74B', tag: '主流币', favored: false, sparkSeed: 97 },
+  { symbol: 'LINK', name: '预言机', icon: 'L', iconBg: '#375bd2', last: 14.62, pct: 3.42, vol: '1.42B', tag: 'DeFi', favored: false, sparkSeed: 101 },
+  { symbol: 'OP', name: 'Optimism', icon: 'O', iconBg: '#ff0420', last: 2.18, pct: -3.62, vol: '0.62B', tag: 'L2', favored: false, sparkSeed: 103 },
+  { symbol: 'MATIC', name: 'Polygon', icon: 'M', iconBg: '#8247e5', last: 0.5841, pct: 6.84, vol: '1.06B', tag: 'L2', favored: false, sparkSeed: 107 },
+  { symbol: 'DOT', name: '波卡', icon: 'D', iconBg: '#e6007a', last: 7.18, pct: -0.94, vol: '0.92B', tag: '主流币', favored: false, sparkSeed: 113 }
 ]
 
-const MOVERS_RAW = [
-  { code: 'BTC/USDT', name: '比特币', last: 68420.55, pct: 0.91, vol: '128.4 亿', favored: true, sparkSeed: 71, badge: 'BTC', badgeColor: '#f7931a' },
-  { code: 'ETH/USDT', name: '以太坊', last: 3412.08, pct: 0.54, vol: '52.7 亿', favored: true, sparkSeed: 73, badge: 'Ξ', badgeColor: '#627eea' },
-  { code: 'SOL/USDT', name: '索拉纳', last: 168.32, pct: 2.82, vol: '18.2 亿', favored: true, sparkSeed: 79, badge: '◎', badgeColor: '#9945ff' },
-  { code: 'AISTER/USDT', name: '艾斯特', last: 12.86, pct: 4.38, vol: '3.42 亿', favored: true, sparkSeed: 83, badge: 'A', badgeColor: '#c5a44e' },
-  { code: 'BNB/USDT', name: '币安币', last: 612.40, pct: -0.35, vol: '8.74 亿', favored: true, sparkSeed: 89, badge: 'B', badgeColor: '#f3ba2f' },
-  { code: 'XRP/USDT', name: '瑞波币', last: 0.5418, pct: 1.27, vol: '4.62 亿', favored: false, sparkSeed: 97, badge: 'X', badgeColor: '#23292f' },
-  { code: 'DOGE/USDT', name: '狗狗币', last: 0.1378, pct: -1.84, vol: '3.18 亿', favored: false, sparkSeed: 101, badge: 'Ð', badgeColor: '#c2a633' },
-  { code: 'TON/USDT', name: '电报币', last: 6.84, pct: 5.62, vol: '2.06 亿', favored: false, sparkSeed: 103, badge: 'T', badgeColor: '#0098ea' },
-  { code: 'ADA/USDT', name: '艾达币', last: 0.4612, pct: 0.22, vol: '2.91 亿', favored: false, sparkSeed: 107, badge: 'A', badgeColor: '#0033ad' },
-  { code: 'AVAX/USDT', name: '雪崩协议', last: 38.42, pct: -2.18, vol: '1.74 亿', favored: false, sparkSeed: 109, badge: 'X', badgeColor: '#e84142' },
-  { code: 'LINK/USDT', name: '预言机', last: 14.62, pct: 3.42, vol: '1.42 亿', favored: false, sparkSeed: 113, badge: 'L', badgeColor: '#375bd2' },
-  { code: 'DOT/USDT', name: '波卡', last: 7.18, pct: -0.94, vol: '0.92 亿', favored: false, sparkSeed: 127, badge: 'D', badgeColor: '#e6007a' },
-  { code: 'MATIC/USDT', name: 'Polygon', last: 0.5841, pct: 6.84, vol: '1.06 亿', favored: false, sparkSeed: 131, badge: 'M', badgeColor: '#8247e5' },
-  { code: 'OP/USDT', name: 'Optimism', last: 2.18, pct: -3.62, vol: '0.62 亿', favored: false, sparkSeed: 137, badge: 'O', badgeColor: '#ff0420' }
+const CONTRACT_LIST = [
+  { symbol: 'ETH', pair: 'USDT 永续', last: 2529.65, pct: 2.01, leverage: '125x' },
+  { symbol: 'BTC', pair: 'USDT 永续', last: 104523.78, pct: 1.23, leverage: '125x' },
+  { symbol: 'SOL', pair: 'USDT 永续', last: 162.35, pct: 1.45, leverage: '75x' },
+  { symbol: 'AISTER', pair: 'USDT 永续', last: 0.1867, pct: 5.36, leverage: '50x' },
+  { symbol: 'BNB', pair: 'USDT 永续', last: 612.40, pct: -0.35, leverage: '75x' },
+  { symbol: 'XRP', pair: 'USDT 永续', last: 0.5418, pct: 1.27, leverage: '50x' }
 ]
+
+function fmtPrice(v) {
+  if (v >= 1000) return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  if (v >= 100) return v.toFixed(2)
+  if (v >= 10) return v.toFixed(3)
+  if (v >= 1) return v.toFixed(4)
+  return v.toFixed(4)
+}
 
 export const useMarketStore = defineStore('market', () => {
-  const indexes = ref(
-    INDEX_RAW.map((it) => ({
-      ...it,
-      spark: buildSpark(it.sparkSeed, it.last, 0.015)
+  const coins = ref(
+    COINS.map((c) => ({
+      ...c,
+      pair: 'USDT',
+      priceStr: fmtPrice(c.last),
+      spark: buildSpark(c.sparkSeed, c.last, 0.015, c.pct >= 0)
     }))
   )
 
-  const movers = ref(
-    MOVERS_RAW.map((it) => ({
-      ...it,
-      spark: buildSpark(it.sparkSeed, it.last, 0.015)
-    }))
-  )
-
-  const focus = ref(indexes.value[0].code)
+  const focus = ref('BTC')
 
   const focused = computed(
-    () => indexes.value.find((i) => i.code === focus.value) || indexes.value[0]
+    () => coins.value.find((c) => c.symbol === focus.value) || coins.value[0]
   )
 
-  const ticker = computed(() =>
-    indexes.value.map((it) => ({
-      code: it.code,
-      last: it.last,
-      pct: it.pct
-    }))
-  )
+  const ticker = computed(() => coins.value.slice(0, 4))
 
-  const favorites = computed(() => movers.value.filter((m) => m.favored))
+  const favorites = computed(() => coins.value.filter((c) => c.favored))
 
   const gainers = computed(() =>
-    [...movers.value].sort((a, b) => b.pct - a.pct).slice(0, 8)
+    [...coins.value].sort((a, b) => b.pct - a.pct).slice(0, 6)
   )
 
   const losers = computed(() =>
-    [...movers.value].sort((a, b) => a.pct - b.pct).slice(0, 8)
+    [...coins.value].sort((a, b) => a.pct - b.pct).slice(0, 6)
   )
 
   const hot = computed(() =>
-    [...movers.value]
+    [...coins.value]
       .sort((a, b) => parseFloat(b.vol) - parseFloat(a.vol))
-      .slice(0, 8)
+      .slice(0, 6)
   )
 
-  function setFocus(code) {
-    focus.value = code
+  const contracts = ref(CONTRACT_LIST)
+
+  function setFocus(symbol) {
+    focus.value = symbol
   }
 
   return {
-    indexes,
-    movers,
+    coins,
     focus,
     focused,
     ticker,
@@ -175,6 +104,8 @@ export const useMarketStore = defineStore('market', () => {
     gainers,
     losers,
     hot,
-    setFocus
+    contracts,
+    setFocus,
+    fmtPrice
   }
 })

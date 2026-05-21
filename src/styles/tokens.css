@@ -1,65 +1,42 @@
 :root {
-  /* ink — neutral foreground */
-  --gdi-ink: #0b0b0c;
-  --gdi-ink2: #2a2a2c;
-  --gdi-ink3: #6b6b6e;
-  --gdi-ink4: #9a9aa0;
+  /* brand */
+  --primary: #2962ff;
+  --primary-deep: #1e4bd0;
+  --primary-light: #e8f0fe;
 
-  /* paper — warm neutral background */
-  --gdi-paper: #f5f3ee;
-  --gdi-paper2: #edeae2;
-  --gdi-paper3: #f8f6f2;
-  --gdi-line: #e4dfd3;
-  --gdi-line2: #efece4;
+  /* up / down — international crypto convention: green up, red down */
+  --green: #00c853;
+  --green-soft: rgba(0, 200, 83, 0.1);
+  --red: #ff1744;
+  --red-soft: rgba(255, 23, 68, 0.1);
 
-  /* hero accent — institutional deep blue */
-  --gdi-accent: #1b365d;
-  --gdi-accent2: #254a7f;
-  --gdi-accent3: #0f2140;
+  /* surfaces */
+  --bg: #f5f6fa;
+  --card-bg: #ffffff;
+  --card-bg-2: #f9faff;
 
-  /* AISTER brand mark color — crypto blue */
-  --aister-blue: #2962ff;
-  --aister-blue-deep: #1e4bd0;
-  --aister-blue-soft: #d9e3ff;
+  /* type */
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
 
-  /* signal accents */
-  --gdi-coral: #e45a3b;
-  --gdi-coral-deep: #b8361f;
-  --gdi-coral-soft: #f28a6e;
-
-  /* up / down — Asia convention: red up, green down */
-  --gdi-up: #e45a3b;
-  --gdi-up-soft: #f28a6e;
-  --gdi-up-bg: #fbe8e0;
-  --gdi-down: #2f6a4a;
-  --gdi-down-soft: #7ebda6;
-  --gdi-down-bg: #e4f0eb;
-
-  /* support hues */
-  --gdi-emerald: #0b7a5b;
-  --gdi-amber: #c7813a;
-  --gdi-bronze: #b8975a;
-  --gdi-azure: #4b5be8;
-  --gdi-violet-soft: #efecf7;
-  --gdi-blue-soft: #e4ecf7;
-  --gdi-warn-soft: #fbe8e0;
+  /* lines */
+  --border: #e5e7eb;
+  --border-soft: #f1f3f5;
 
   /* radius */
-  --r-xs: 6px;
-  --r-sm: 10px;
-  --r-md: 14px;
-  --r-lg: 18px;
-  --r-xl: 22px;
-  --r-pill: 999px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 4px;
+  --radius-pill: 999px;
 
-  /* font stacks */
-  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC",
-    "Source Han Sans SC", "Microsoft YaHei", "Helvetica Neue", system-ui, sans-serif;
-  --font-num: "SF Pro Display", -apple-system, BlinkMacSystemFont, "DIN Alternate",
-    "Helvetica Neue", "PingFang SC", system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
+  /* chrome */
+  --header-h: 56px;
+  --nav-h: 56px;
 
-  /* tab + nav */
-  --nav-h: 60px;
-  --header-h: 44px;
+  /* fonts */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+    'PingFang SC', 'Helvetica Neue', sans-serif;
+  --font-num: 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+    'DIN Alternate', 'Helvetica Neue', 'PingFang SC', sans-serif;
 }

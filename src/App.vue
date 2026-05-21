@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
 const route = useRoute()
 const frameMode = computed(() => route.meta?.frameMode || 'mobile')
@@ -15,7 +15,6 @@ const frameMode = computed(() => route.meta?.frameMode || 'mobile')
         </transition>
       </router-view>
     </div>
-    <div class="frame-chrome" aria-hidden="true"></div>
   </div>
 </template>
 
@@ -23,30 +22,31 @@ const frameMode = computed(() => route.meta?.frameMode || 'mobile')
 .app-shell {
   min-height: 100vh;
   width: 100%;
-  background: var(--gdi-paper2);
   display: flex;
   justify-content: center;
   align-items: stretch;
-  font-family: var(--font-sans);
-  color: var(--gdi-ink);
+  background: var(--bg);
 }
 .app-frame {
   width: 100%;
   max-width: 430px;
   min-height: 100vh;
-  background: var(--gdi-paper);
+  background: var(--bg);
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 0 0 1px var(--gdi-line2), 0 30px 80px -40px rgba(11, 11, 12, 0.35);
 }
 @media (min-width: 768px) {
   .app-shell {
     padding: 24px 0;
-    background: var(--gdi-paper3);
+    background: #e9ecf3;
   }
   .app-frame {
     border-radius: 28px;
-    box-shadow: 0 0 0 1px var(--gdi-line), 0 30px 80px -30px rgba(11, 11, 12, 0.35);
+    min-height: calc(100vh - 48px);
+    box-shadow: 0 30px 80px -30px rgba(15, 23, 42, 0.25);
+    overflow: hidden;
   }
 }
 .fade-enter-from,
