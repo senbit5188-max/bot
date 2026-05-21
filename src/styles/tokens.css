@@ -1,0 +1,42 @@
+:root {
+  /* brand */
+  --primary: #2962ff;
+  --primary-deep: #1e4bd0;
+  --primary-light: #e8f0fe;
+
+  /* up / down — international crypto convention: green up, red down */
+  --green: #00c853;
+  --green-soft: rgba(0, 200, 83, 0.1);
+  --red: #ff1744;
+  --red-soft: rgba(255, 23, 68, 0.1);
+
+  /* surfaces */
+  --bg: #f5f6fa;
+  --card-bg: #ffffff;
+  --card-bg-2: #f9faff;
+
+  /* type */
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+
+  /* lines */
+  --border: #e5e7eb;
+  --border-soft: #f1f3f5;
+
+  /* radius */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* chrome */
+  --header-h: 56px;
+  --nav-h: 56px;
+
+  /* fonts */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+    'PingFang SC', 'Helvetica Neue', sans-serif;
+  --font-num: 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+    'DIN Alternate', 'Helvetica Neue', 'PingFang SC', sans-serif;
+}
