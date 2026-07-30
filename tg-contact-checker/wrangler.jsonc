@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tg-contact-checker",
+  "account_id": "3ae8d743322caacb6e369c16df009cc5",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-03-10",
+  "compatibility_flags": ["nodejs_compat"],
+  "migrations": [
+    {
+      "new_sqlite_classes": ["TelegramSession"],
+      "tag": "v1"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "TelegramSession",
+        "name": "TELEGRAM_SESSION"
+      }
+    ]
+  },
+  "observability": {
+    "enabled": true
+  }
+}
