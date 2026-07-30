@@ -1,0 +1,22 @@
+{
+  "name": "tg-contact-checker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "type-check": "tsc --noEmit",
+    "format": "biome format --write",
+    "lint": "biome lint"
+  },
+  "dependencies": {
+    "big-integer": "^1.6.52",
+    "telegram": "^2.26.22"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^20.17.0",
+    "typescript": "^5.7.0",
+    "wrangler": "4.45.3"
+  }
+}
