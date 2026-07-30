@@ -27,6 +27,9 @@ export class TelegramSession extends DurableObject<Env> {
 	constructor(state: DurableObjectState, env: Env) {
 		super(state, env);
 		this.store = new DurableObjectStorageStore(this.ctx.storage);
+		this.ctx.blockConcurrencyWhile(async () => {
+			await this.initialize();
+		});
 	}
 
 	async initialize(): Promise<void> {
@@ -51,7 +54,6 @@ export class TelegramSession extends DurableObject<Env> {
 	}
 
 	async fetch(request: Request): Promise<Response> {
-		await this.initialize();
 		if (!this.client) {
 			return json({ error: "Client not initialized" }, 500);
 		}
@@ -167,17 +169,17 @@ function normalizePhone(raw: string, prefix = ""): string | null {
 function json(data: unknown, status = 200): Response {
 	return new Response(JSON.stringify(data), {
 		status,
-		headers: {
-			"Content-Type": "application/json",
-			"Access-Control-Allow-Origin": "*",
-		},
+		headers: { "Content-Type": "application/json" },
 	});
 }
 
 export default {
 	async fetch(request: Request, env: Env, _ctx: ExecutionContext) {
 		const url = new URL(request.url);
-		const authPath = `/${env.AUTH_SECRET_PATH || "auth"}`;
+		if (!env.AUTH_SECRET_PATH) {
+			return new Response("AUTH_SECRET_PATH not configured", { status: 500 });
+		}
+		const authPath = `/${env.AUTH_SECRET_PATH}`;
 
 		if (url.pathname === authPath) {
 			return Response.redirect(`${url.toString()}/`, 302);
