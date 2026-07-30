@@ -34,7 +34,7 @@ npm run dev
 npx wrangler secret put TELEGRAM_API_ID
 npx wrangler secret put TELEGRAM_API_HASH
 npx wrangler secret put TELEGRAM_PHONE
-# 可选：设置访问路径（留空则默认 auth）
+# 必须设置访问路径（用于保护 Worker URL）
 npx wrangler secret put AUTH_SECRET_PATH
 
 npm run deploy
@@ -45,5 +45,5 @@ npm run deploy
 ## 安全提示
 
 - `TELEGRAM_API_HASH` 和 `TELEGRAM_PHONE` 已通过 `wrangler secret` 加密存储。
-- 默认访问路径为 `auth`，建议将其改为随机字符串并通过 `wrangler secret put AUTH_SECRET_PATH` 覆盖。
+- `AUTH_SECRET_PATH` 必须设置为随机字符串，用于保护 Worker URL 不被他人滥用。
 - 该工具会调用 Telegram 的 `contacts.importContacts`；请仅用于你自己的联系人，遵守 Telegram 使用条款。
