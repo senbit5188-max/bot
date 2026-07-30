@@ -19,9 +19,6 @@
       }
     ]
   },
-  "vars": {
-    "AUTH_SECRET_PATH": "auth"
-  },
   "observability": {
     "enabled": true
   }
