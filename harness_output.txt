@@ -1,0 +1,25 @@
+PASS: T1 ticket row inserted [(1, '方舟登录不了，一直报错', 'senbit5188-max/yumiren', 'open')]
+PASS: T1 project mapped to yumiren 
+PASS: T1 status open 
+PASS: T1 reply contains 工单 #1 已收到反馈，登记为工单 <b>#1</b>。
+内容：方舟登录不了，一直报错
+PASS: T1 button callback_data fix:1 text='创建 Devin 会话修复'
+PASS: T1neg no ticket for normal text 
+PASS: T2 spark-im 
+PASS: T2 AISTER (case-insens) 
+PASS: T2 default 
+PASS: T2 方舟 
+PASS: T3 tickets lists #1 [open] #1 [open] 张三: 方舟登录不了，一直报错
+PASS: T4 non-admin /fix rejected 
+PASS: T4 admin /fix POSTs to devin api 
+PASS: T4 bearer header 
+PASS: T4 prompt contains desc 
+PASS: T4 reply contains url 
+PASS: T5 non-admin button rejected 
+PASS: T5 admin button POSTs 
+PASS: T5 ticket updated processing+url ('processing', 'devin-x', 'https://app.devin.ai/sessions/x')
+PASS: T5 reply contains url 
+PASS: T5 second click no new session 
+PASS: T3 empty db 暂无工单 
+
+22 checks, 0 failed

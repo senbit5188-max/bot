@@ -18,7 +18,8 @@ mkdir -p /opt/ops-bot && cd /opt/ops-bot
 python3 -m venv venv && venv/bin/pip install -r requirements.txt
 cat > .env <<'EOF'
 OPS_TG_BOT_TOKEN=<bot token>
-DEVIN_API_KEY=<devin api key>
+DEVIN_API_KEY=<devin service user key, cog_...>
+DEVIN_ORG_ID=<org-...>
 ADMIN_USER_IDS=<逗号分隔的管理员 Telegram user id，留空则任何人可触发>
 EOF
 chmod 600 .env

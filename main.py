@@ -6,8 +6,10 @@ Devin API to investigate and fix code issues.
 
 Environment variables:
     OPS_TG_BOT_TOKEN   Telegram bot token (required)
-    DEVIN_API_KEY      Devin API key (optional; Devin session creation
-                       is disabled when missing)
+    DEVIN_API_KEY      Devin service-user API key, cog_... (optional; Devin
+                       session creation is disabled when missing)
+    DEVIN_ORG_ID       Devin organization ID, org-... (required with
+                       DEVIN_API_KEY)
     ADMIN_USER_IDS     comma-separated Telegram user IDs allowed to
                        trigger Devin sessions (optional; empty = anyone)
     DB_PATH            sqlite database path (default: tickets.db)
@@ -46,8 +48,9 @@ ADMIN_USER_IDS = {
     int(x) for x in os.environ.get("ADMIN_USER_IDS", "").split(",") if x.strip()
 }
 DB_PATH = os.environ.get("DB_PATH", "tickets.db")
+DEVIN_ORG_ID = os.environ.get("DEVIN_ORG_ID", "")
 
-DEVIN_API_BASE = "https://api.devin.ai/v1"
+DEVIN_API_BASE = "https://api.devin.ai/v3"
 
 # Project name -> GitHub repo. Users can tag a message with #project.
 PROJECTS = {
@@ -99,9 +102,9 @@ def detect_project(text: str) -> str:
 
 def create_devin_session(prompt: str) -> dict:
     resp = requests.post(
-        f"{DEVIN_API_BASE}/sessions",
+        f"{DEVIN_API_BASE}/organizations/{DEVIN_ORG_ID}/sessions",
         headers={"Authorization": f"Bearer {DEVIN_API_KEY}"},
-        json={"prompt": prompt, "idempotent": False},
+        json={"prompt": prompt},
         timeout=30,
     )
     resp.raise_for_status()
@@ -161,8 +164,8 @@ async def cmd_fix(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def spawn_devin(msg, desc: str, ticket_id: int | None) -> None:
-    if not DEVIN_API_KEY:
-        await msg.reply_text("未配置 DEVIN_API_KEY，无法创建 Devin 会话。")
+    if not DEVIN_API_KEY or not DEVIN_ORG_ID:
+        await msg.reply_text("未配置 DEVIN_API_KEY/DEVIN_ORG_ID，无法创建 Devin 会话。")
         return
     repo = detect_project(desc)
     prompt = (
