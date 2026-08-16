@@ -1,2 +1,5 @@
 venv/
 tickets.db
+__pycache__/
+harness_output.txt
+test_plan.md
