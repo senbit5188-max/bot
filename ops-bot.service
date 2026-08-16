@@ -1,0 +1,15 @@
+[Unit]
+Description=Telegram ops/customer-service bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ops-bot
+EnvironmentFile=/opt/ops-bot/.env
+ExecStart=/opt/ops-bot/venv/bin/python /opt/ops-bot/main.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
